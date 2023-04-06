@@ -1,11 +1,13 @@
 ﻿Feature: ProfileFeature
 
+As a seller, I'd like to login Mars portal with valid email and password.
 As a seller, I'd like to add language, skill, education and certifictation details to profile.
 As a seller, I'd like to edit description, language, skill, education and certifictation details to profile.
 As a seller, I'd like to  description language, skill, education and certifictation details to profile.
 
 
 @tag1
+
 
 
 Scenario: I add new language record with valid details
@@ -102,4 +104,11 @@ Scenario: I delete an existing certification record
 	When I navigate to certification feature
 	And I delete an existing certification record
 	Then The new education should be deleted successfully
+
+	
+Scenario:I can share skill in mars poetal
+Given I logged in Mars portal successfully
+When I share skill in mars portal
+Then The skill should be shared successfully
+
 

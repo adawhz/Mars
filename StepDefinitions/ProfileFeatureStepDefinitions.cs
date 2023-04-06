@@ -162,75 +162,117 @@ namespace MarsQA.StepDefinitions
         }
 
         [When(@"I update'([^']*)','([^']*)' on an existing education record")]
-        public void WhenIUpdateOnAnExistingEducationRecord(string japan, string p1)
+        public void WhenIUpdateOnAnExistingEducationRecord(string country, string university)
         {
-            throw new PendingStepException();
+
+            //Edit education
+            profilePageObj.EditEducation(driver, country, university);
+
         }
 
         [Then(@"The education record should have updated'([^']*)','([^']*)'")]
-        public void ThenTheEducationRecordShouldHaveUpdated(string japan, string p1)
+        public void ThenTheEducationRecordShouldHaveUpdated(string country, string university)
         {
-            throw new PendingStepException();
+            //Check the last education recoed has been edited
+            string checkEditedCountry = profilePageObj.GetEditedEducationCountry(driver);
+            string checkEditedUniversity = profilePageObj.GetEditedEducationUniversity(driver);
+            Assert.AreEqual(checkEditedCountry, country, "Actual and expected skill record do not match.");
+            Assert.AreEqual(checkEditedUniversity, university, "Actual and expected skill record do not match.");
         }
 
         [When(@"I update '([^']*)','([^']*)' on an existing certification record")]
-        public void WhenIUpdateOnAnExistingCertificationRecord(string p0, string hongkong)
+        public void WhenIUpdateOnAnExistingCertificationRecord(string certificatename, string certificatefrom)
         {
-            throw new PendingStepException();
+            //Edit certificate
+            profilePageObj.EditCertification(driver,certificatename,certificatefrom);
         }
 
         [Then(@"The certification reocrd should have updated '([^']*)','([^']*)'")]
-        public void ThenTheCertificationReocrdShouldHaveUpdated(string p0, string hongkong)
+        public void ThenTheCertificationReocrdShouldHaveUpdated(string certificatename, string certificatefrom)
         {
-            throw new PendingStepException();
+            //Check the last certification record has been updated successfullt
+            string checkEditedCertificateName = profilePageObj.GetEditedCertificateName(driver);
+            string checkEditedCertificateFrom = profilePageObj.GetEditedCertificateFrom(driver);
+            Assert.AreEqual(checkEditedCertificateName, certificatename, "Actual and expected skill record do not match.");
+            Assert.AreEqual(checkEditedCertificateFrom, certificatefrom, "Actual and expected skill record do not match.");
         }
 
         [Given(@"I delete an existing language record")]
         public void GivenIDeleteAnExistingLanguageRecord()
         {
-            throw new PendingStepException();
+            //Delete the last language record
+            profilePageObj.DeleteLanguage(driver);
         }
 
         [Then(@"The language reocrd should be deleted successfully")]
         public void ThenTheLanguageReocrdShouldBeDeletedSuccessfully()
         {
-            throw new PendingStepException();
+            //Check if the language record has been deleted successfully
+            string lastDeletedLanguage = profilePageObj.GetLastLanguage(driver);
+            String checkPopUpMeaasge = profilePageObj.GetPopUpMessage(driver);
+           
+
+            Assert.AreEqual(checkPopUpMeaasge, lastDeletedLanguage + " has been deleted from your languages", "Actual and expected skill record do not match.");
         }
 
         [When(@"I delete an existing skill record")]
         public void WhenIDeleteAnExistingSkillRecord()
         {
-            throw new PendingStepException();
+            //Delete the last skill record
+            profilePageObj.DeleteSkill(driver);
         }
 
         [Then(@"The skill record should be deleted successfully")]
         public void ThenTheSkillRecordShouldBeDeletedSuccessfully()
         {
-            throw new PendingStepException();
+            //Check if the skill record has been deleted successfully
+            string lastDeletedSkill = profilePageObj.GetLastSkill(driver);
+            string checkPopUpMessage = profilePageObj.GetPopUpMessage(driver);
+            Assert.AreEqual(checkPopUpMessage, lastDeletedSkill + " has been deleted", "Actual and expected skill record do not match.");
         }
 
         [When(@"I delete an existing education record")]
         public void WhenIDeleteAnExistingEducationRecord()
         {
-            throw new PendingStepException();
+            //Delete the last education record
+            profilePageObj.DeleteEducation(driver);
         }
 
         [Then(@"The education record should be deleted successfully")]
         public void ThenTheEducationRecordShouldBeDeletedSuccessfully()
         {
-            throw new PendingStepException();
+            string lastDeletedEducation = profilePageObj.GetLastEducation(driver);
+            string checkPopUpMessage = profilePageObj.GetPopUpMessage(driver);
+            Assert.AreEqual(checkPopUpMessage, "Education entry successfully removed", "Actual and expected skill record do not match.");
         }
 
         [When(@"I delete an existing certification record")]
         public void WhenIDeleteAnExistingCertificationRecord()
         {
-            throw new PendingStepException();
+            //Delete the last certification record
+            profilePageObj.DeleteCertification(driver);
+
         }
 
         [Then(@"The new education should be deleted successfully")]
         public void ThenTheNewEducationShouldBeDeletedSuccessfully()
         {
+            string lastDeletedCertification = profilePageObj.GetLastCertification(driver);
+            string checkPopUpMessage = profilePageObj.GetPopUpMessage(driver);
+            Assert.AreEqual(checkPopUpMessage, lastDeletedCertification + " has been deleted from your certification", "Actual and expected skill record do not match.");
+        }
+
+
+        [When(@"I share skill in mars portal")]
+        public void WhenIShareSkillInMarsPortal()
+        {
             throw new PendingStepException();
         }
+        [Then(@"The skill should be shared successfully")]
+        public void ThenTheSkillShouldBeSharedSuccessfully()
+        {
+            throw new PendingStepException();
+        }
+
     }
 }
