@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using MarsQA.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -14,26 +15,28 @@ namespace MarsQA.Pages
     {
         public void EditDescription(IWebDriver driver)
         {
-            //Add new description
+            //Edit new description
             //Click on create new description icon
-            Thread.Sleep(1000);
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/div/div/div/h3/span", 5);
 
             IWebElement createDescription = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/div/div/div/h3/span"));
             createDescription.Click();
 
             //Input description
             IWebElement descriptionTextbox = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/div[1]/textarea"));
+            descriptionTextbox.Clear();
             descriptionTextbox.SendKeys("I like playing badminton in my spare time.");
 
             //Click on save button
             IWebElement descriptionSaveButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/button"));
             descriptionSaveButton.Click();
-            Thread.Sleep(1000);
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 5);
+
         }
 
         public string GetDescription(IWebDriver driver)
         {
-            Thread.Sleep(1000);
+            
             //Check if the new discription has been saved
             IWebElement newDescription = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/div/div/div/span"));
             return newDescription.Text;
@@ -59,6 +62,8 @@ namespace MarsQA.Pages
             //Click on save button
             IWebElement languageSaveButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[3]/input[1]"));
             languageSaveButton.Click();
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 10);
+
 
         }
         public string GetLastLanguage(IWebDriver driver)
@@ -84,7 +89,8 @@ namespace MarsQA.Pages
             //Click on update button
             IWebElement languageUpdateBUtton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody[last()]/tr/td/div/span/input[1]"));
             languageUpdateBUtton.Click();
-            Thread.Sleep(5000);
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 5);
+
         }
 
         public string GetEditedLanguageName(IWebDriver driver)
@@ -92,6 +98,7 @@ namespace MarsQA.Pages
             //Check if the last language name record has been edited successfully
             IWebElement checkOfEditLanguageName = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody[last()]/tr/td[1]"));
             return checkOfEditLanguageName.Text;
+
         }
         public string GetEditedLanguageLevel(IWebDriver driver)
         {
@@ -104,7 +111,7 @@ namespace MarsQA.Pages
         {
             //Delete an existing language record
             //Delete the last language record
-            Thread.Sleep(1000);
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody[last()]/tr/td[3]/span[2]", 5);
             IWebElement recordTobeDeleteButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody[last()]/tr/td[3]/span[2]"));
             recordTobeDeleteButton.Click();
             
@@ -112,7 +119,7 @@ namespace MarsQA.Pages
         } 
         public string GetPopUpMessage(IWebDriver driver)
         {
-            Thread.Sleep(2000);
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 5);
             IWebElement popupNotice = driver.FindElement(By.CssSelector(".ns-box-inner"));
             return popupNotice.Text;
         }
@@ -143,7 +150,9 @@ namespace MarsQA.Pages
             //Click on save button
             IWebElement skillSaveButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/div/span/input[1]"));
             skillSaveButton.Click();
-            Thread.Sleep(5000);
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 5);
+
+
 
         }
         public string GetLastSkill(IWebDriver driver)
@@ -160,21 +169,24 @@ namespace MarsQA.Pages
             recordToBeEdit.Click();
 
             //Edit skill of last skill record
-            Thread.Sleep(1000);
+            Wait.WaitToBeVisiable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td/div/div[1]/input", 5);
             IWebElement skillToBeEditTextbox = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td/div/div[1]/input"));
             skillToBeEditTextbox.Clear();
             skillToBeEditTextbox.SendKeys(skillname);
-            Thread.Sleep(2000);
-          
+            Wait.WaitToBeVisiable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td/div/div[2]/select", 5);
+
+
             IWebElement skillToBeEditLevel = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td/div/div[2]/select"));    
             SelectElement skillSelect = new(skillToBeEditLevel);
             skillSelect.SelectByValue(skilllevel);
-            Thread.Sleep(1000);
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td/div/span/input[1]", 5);
 
             //Click on update button
             IWebElement skillUpdateButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td/div/span/input[1]"));
             skillUpdateButton.Click();
-            Thread.Sleep(5000);
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 5);
+
+
 
         }
         public string GetEditedSkillName(IWebDriver driver)
@@ -241,7 +253,8 @@ namespace MarsQA.Pages
             //Click on save button
             IWebElement educationSaveButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[3]/div/input[1]"));
             educationSaveButton.Click();
-            Thread.Sleep(5000);
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 5);
+
 
         }
         public string GetLastEducation(IWebDriver driver)
@@ -253,24 +266,28 @@ namespace MarsQA.Pages
         {
             //Eidting an existing education record
             //Click on the edit button of the last education record
-            IWebElement educationToBeEditButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[2]/tr/td[6]/span[1]"));
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td[6]/span[1]", 5);
+            IWebElement educationToBeEditButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td[6]/span[1]"));
             educationToBeEditButton.Click();
-            Thread.Sleep(1000);
+            Wait.WaitToBeVisiable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td/div[1]/div[2]/select", 5);
+
 
             //Edit the last education record
             IWebElement educationToBeEditCountry = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td/div[1]/div[2]/select"));
             SelectElement countrySelect = new(educationToBeEditCountry);
             countrySelect.SelectByValue(country);
-            Thread.Sleep(1000);
+            Wait.WaitToBeVisiable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td/div[1]/div[1]/input", 5);
+
             IWebElement educationToBeEditUniversity = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td/div[1]/div[1]/input"));
             educationToBeEditUniversity.Clear();
             educationToBeEditUniversity.SendKeys(university);
 
             //Click update button
-            Thread.Sleep(1000);
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td/div[3]/input[1]", 5);
             IWebElement educationUpdateButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td/div[3]/input[1]"));
             educationUpdateButton.Click();
-            Thread.Sleep(5000);
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 5);
+
         }
         public string GetEditedEducationCountry(IWebDriver driver)
         {
@@ -300,7 +317,7 @@ namespace MarsQA.Pages
         {
             //Add new certifiations
             //Navigate to certification page
-            Thread.Sleep(1000);
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]", 5);
             IWebElement certificationPage = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]"));
             certificationPage.Click();
 
@@ -325,7 +342,8 @@ namespace MarsQA.Pages
             //Click on save button
             IWebElement certificationSaveButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/div/div[3]/input[1]"));
             certificationSaveButton.Click();
-            Thread.Sleep(5000);
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 5);
+
 
         }
         public string GetLastCertification(IWebDriver driver)
@@ -340,19 +358,21 @@ namespace MarsQA.Pages
             //Click on edit button of the last certification record
             IWebElement certificationToBeEditButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody[last()]/tr/td[4]/span[1]"));
             certificationToBeEditButton.Click();
-            Thread.Sleep(1000);
+            Wait.WaitToBeVisiable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody[last()]/tr/td/div/div/div[1]/input", 5);
             IWebElement certificateTobeEditName = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody[last()]/tr/td/div/div/div[1]/input"));
             certificateTobeEditName.Clear();
             certificateTobeEditName.SendKeys(certificatename);
             IWebElement certificateToBeEditFrom = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody[last()]/tr/td/div/div/div[2]/input"));
             certificateToBeEditFrom.Clear();
             certificateToBeEditFrom.SendKeys(certificatefrom);
-            Thread.Sleep(1000);
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody[last()]/tr/td/div/span/input[1]", 5);
+
 
             //Click on update button
             IWebElement certificateUpdateButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody[last()]/tr/td/div/span/input[1]"));
             certificateUpdateButton.Click();
-            Thread.Sleep(5000);
+            Wait.WaitToBeVisiable(driver, "CssSelector", ".ns-box-inner", 5);
+
         }
 
         public string GetEditedCertificateName(IWebDriver driver)
@@ -374,43 +394,7 @@ namespace MarsQA.Pages
         }
 
 
-        public void ShareSkill(IWebDriver driver)
-        {
-            //Share skill in mars portal
-            //Click on button of share skill
-            IWebElement shareSkillButton = driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/section[1]/div/div[2]/a"));
-            shareSkillButton.Click();
-
-            //Input title into title textbox
-            IWebElement titleTextbox = driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input"));
-            titleTextbox.SendKeys("Selling Cosultant Service");
-
-            //Input description into description textbox
-            IWebElement shareSkillDescriptionTextbox = driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[2]/div/div[2]/div[1]/textarea"));
-            shareSkillDescriptionTextbox.SendKeys("I like watching movies.");
-
-            //Select category from category dropdown
-            IWebElement categoryDropdown = driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[3]/div[2]/div/div/select"));
-            IWebElement selectCategoryDropdown = driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[8]"));
-            selectCategoryDropdown.Click();
-
-            //Select subcategory from subvategory dropdown
-            IWebElement subcategoryDropdown = driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[3]/div[2]/div/div[2]/div[1]/select"));
-            IWebElement selectSubcategoryDropdown = driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[3]/div[2]/div/div[2]/div[1]/select/option[4]"));
-            selectSubcategoryDropdown.Click();
-
-            //Input tags into tags textbox
-            IWebElement tagsTextbox = driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div[1]/div/div/div/input"));
-            tagsTextbox.SendKeys("Marketing");
-            tagsTextbox.SendKeys(Keys.Return);
-            tagsTextbox.SendKeys("Consulting");
-            tagsTextbox.SendKeys(Keys.Return);
-
-
-            //Choose service type from checkbox
-            IWebElement chooseServiceType = driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[5]/div[2]/div[1]/div[1]/div/input"));
-            chooseServiceType.Click();
-        }
+       
 
     }
 

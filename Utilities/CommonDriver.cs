@@ -12,6 +12,11 @@ namespace MarsQA.Utilities
     public class CommonDriver
     {
         public IWebDriver driver = new ChromeDriver(@"Document:/MarsQA");
+        [AfterScenario]
+          public void CleanUp()
+        {
+            driver.Dispose();
+        }
 
     }
 }

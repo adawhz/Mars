@@ -36,7 +36,7 @@ namespace MarsQA.StepDefinitions
         {
             //Check new language record has been added
             string newLanguage = profilePageObj.GetLastLanguage(driver);
-            Assert.AreNotEqual(newLanguage, "Chinese", "Actual and expected result are not equal.");
+            Assert.AreEqual(newLanguage, "Chinese", "Actual and expected result are not equal.");
         }
 
 
