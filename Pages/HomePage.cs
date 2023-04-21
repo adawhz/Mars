@@ -10,28 +10,32 @@ namespace MarsQA.Pages
 {
     public class HomePage
     {
-        public void GoToSkills(IWebDriver driver)
+
+        private readonly IWebDriver driver;
+
+        public HomePage(IWebDriver driver) { this.driver = driver; }
+
+        public void GoToSkills()
         {
             //Navigate to skills page
-            
             Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]", 5);
-            IWebElement skillsPage = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]"));
             skillsPage.Click();
         }
 
-        public void GoToEducation(IWebDriver driver)
+        public void GoToEducation()
         {
-            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]", 5);
             //navigate to education page
-            IWebElement educationPage = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]"));
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]", 5); 
             educationPage.Click();
         }
-        public void GoToCertification(IWebDriver driver)
+        public void GoToCertification()
         {
             //Navigate to certification page
             Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]", 5);
-            IWebElement certificationPage = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]"));
             certificationPage.Click();
         }
+        private IWebElement skillsPage => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]"));
+        private IWebElement educationPage => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]"));
+        private IWebElement certificationPage => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]"));
     }
 }

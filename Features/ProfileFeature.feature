@@ -34,12 +34,8 @@ Scenario: 04) I add new certification record with valid details
 	And I add new certification record with valid details
 	Then The new certification should be added successfully
 
-Scenario: 05) I edit description details 
-	Given I logged in Mars portal successfully
-	When I edit description with valid details
-	Then The description should be edited successfully
 
-Scenario Outline: 06) I edit an existing language record with valid details
+Scenario Outline: 05) I edit an existing language record with valid details
     Given I logged in Mars portal successfully
 	And I update '<LanguageName>','<LanguageLevel>' on an existing language record
 	Then The language record should have updated '<LanguageName>','<LanguageLevel>'
@@ -49,7 +45,7 @@ Scenario Outline: 06) I edit an existing language record with valid details
 	| German       | Basic         |
 	| French       | Fluent        |
 
-Scenario Outline: 07) I edit an existing skill record with valid details 
+Scenario Outline: 06) I edit an existing skill record with valid details 
 	Given I logged in Mars portal successfully
 	When I navigate to skills feature
 	And I update '<SkillName>','<SkillLevel>' on an existing skill record
@@ -60,7 +56,7 @@ Scenario Outline: 07) I edit an existing skill record with valid details
 	| Writing   | Beginner     |
 	| Singing   | Intermediate |
 
-Scenario Outline: 08) I edit an existing education record with valid details
+Scenario Outline: 07) I edit an existing education record with valid details
 	Given I logged in Mars portal successfully
 	When I navigate to education feature
 	And I update'<Country>','<University>' on an existing education record
@@ -71,7 +67,7 @@ Scenario Outline: 08) I edit an existing education record with valid details
 	| Japan   | Tokyo University      |
 	| Canada  | University of Toronto |
 
-Scenario Outline: 09) I edit an existing certification with valid details
+Scenario Outline: 08) I edit an existing certification with valid details
     Given I logged in Mars portal successfully
 	When I navigate to certification feature
 	And I update '<CertificateName>','<From>' on an existing certification record 
@@ -83,31 +79,36 @@ Scenario Outline: 09) I edit an existing certification with valid details
 	| Speaking Certification  | China     |
 
 
-Scenario: 10) I delete an existing language record
+Scenario: 09) I delete an existing language record
     Given I logged in Mars portal successfully
 	And I delete an existing language record
 	Then The language reocrd should be deleted successfully
 
-Scenario: 11) I delete an existing skill record
+Scenario: 10) I delete an existing skill record
 	Given I logged in Mars portal successfully
 	When I navigate to skills feature
 	And I delete an existing skill record
 	Then The skill record should be deleted successfully
 
-Scenario: 12) I delete an existing education record
+Scenario: 11) I delete an existing education record
 	Given I logged in Mars portal successfully
 	When I navigate to education feature
 	And I delete an existing education record
 	Then The education record should be deleted successfully
 
-Scenario: 13) I delete an existing certification record
+Scenario: 12) I delete an existing certification record
     Given I logged in Mars portal successfully
 	When I navigate to certification feature
 	And I delete an existing certification record
 	Then The new education should be deleted successfully
+    
+Scenario: I edit description details 
+	Given I logged in Mars portal successfully
+	When I edit description with valid details
+	Then The description should be edited successfully
 
 	
-Scenario:14) I can share skill in mars portal
+Scenario: I can share skill in mars portal
     Given I logged in Mars portal successfully
     When  I share skill in mars portal
     Then  The skill should be shared successfully

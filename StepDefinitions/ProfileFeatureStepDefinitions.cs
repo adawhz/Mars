@@ -11,9 +11,22 @@ namespace MarsQA.StepDefinitions
     public class ProfileFeatureStepDefinitions:CommonDriver
     {
         //Page object initialization
-        LoginPage logininPageObj = new LoginPage();
-        HomePage homepageObj = new HomePage();  
-        ProfilePage profilePageObj = new ProfilePage();
+        LoginPage logininPageObj;
+        HomePage homepageObj;  
+       
+        LanguagePage languagePageObj;
+        SkillPage skillPageObj;
+        EducationPage educationPageObj;
+        CertificatePage certificatePageObj;
+
+        public ProfileFeatureStepDefinitions() {
+            logininPageObj = new LoginPage(driver);
+            homepageObj = new HomePage(driver);
+            languagePageObj = new LanguagePage(driver);
+            skillPageObj = new SkillPage(driver);   
+            certificatePageObj = new CertificatePage(driver);
+            educationPageObj = new EducationPage(driver);
+        }
 
 
         [Given(@"I logged in Mars portal successfully")]
@@ -21,22 +34,22 @@ namespace MarsQA.StepDefinitions
         {
           
             //Login page object initialization and definition
-            logininPageObj.LoginAction(driver);
+            logininPageObj.LoginAction();
         }
 
         [When(@"I add new language record with valid details")]
         public void WhenIAddNewLanguageRecordWithValidDetails()
         {
             //Create language record
-            profilePageObj.CreateLanguage(driver);
+            languagePageObj.CreateLanguage();
         }
 
         [Then(@"The new language record should be added successfully")]
         public void ThenTheNewLanguageRecordShouldBeAddedSuccessfully()
         {
             //Check new language record has been added
-            string newLanguage = profilePageObj.GetLastLanguage(driver);
-            Assert.AreEqual(newLanguage, "Chinese", "Actual and expected result are not equal.");
+            string newLanguage = languagePageObj.GetLastLanguage();
+            Assert.AreEqual("Chinese", newLanguage,  "Actual and expected result are not equal.");
         }
 
 
@@ -45,22 +58,22 @@ namespace MarsQA.StepDefinitions
         public void WhenINavigateToSkillsFeature()
         {
             //Go to skill tab
-            homepageObj.GoToSkills(driver);
+            homepageObj.GoToSkills();
         }
 
         [When(@"I add add new skills record with valid details")]
         public void WhenIAddAddNewSkillsRecordWithValidDetails()
         {
             //Create skill record
-            profilePageObj.CreateSkill(driver);
+            skillPageObj.CreateSkill();
         }
 
         [Then(@"The new skill record should be added successfully")]
         public void ThenTheNewSkillRecordShouldBeAddedSuccessfully()
         {
             //Check new skill record has been added
-            string newSkill = profilePageObj.GetLastSkill(driver);
-            Assert.AreEqual(newSkill, "Editing", "Actual and expected skill record do not match.");
+            string newSkill = skillPageObj.GetLastSkill();
+            Assert.AreEqual("Editing", newSkill,  "Actual and expected skill record do not match.");
         }
 
 
@@ -68,22 +81,22 @@ namespace MarsQA.StepDefinitions
         public void WhenINavigateToEducationFeature()
         {
            //Go to education tab
-           homepageObj.GoToEducation(driver);
+           homepageObj.GoToEducation();
         }
 
         [When(@"I add a new education record with valid details")]
         public void WhenIAddANewEducationRecordWithValidDetails()
         {
             //Create education record
-            profilePageObj.CreateEducation(driver);
+            educationPageObj.CreateEducation();
         }
 
         [Then(@"The new education record should be added successfully")]
         public void ThenTheNewEducationRecordShouldBeAddedSuccessfully()
         {
             //Check new education record has been added
-            string newEducation = profilePageObj.GetLastEducation(driver);
-            Assert.AreEqual(newEducation, "Tianjin ForeignStudies University", "Actual and expected skill record do not match.");
+            string newEducation = educationPageObj.GetLastEducation();
+            Assert.AreEqual("Tianjin ForeignStudies University", newEducation,  "Actual and expected skill record do not match.");
         }
 
 
@@ -91,55 +104,42 @@ namespace MarsQA.StepDefinitions
         public void WhenINavigateToCertificationFeature()
         {
            //Go to certification
-           homepageObj.GoToCertification(driver);
+           homepageObj.GoToCertification();
         }
 
         [When(@"I add new certification record with valid details")]
         public void WhenIAddNewCertificationRecordWithValidDetails()
         {
             //Create new certification record
-            profilePageObj.CreateCertification(driver);
+            certificatePageObj.CreateCertification();
         }
 
         [Then(@"The new certification should be added successfully")]
         public void ThenTheNewCertificationShouldBeAddedSuccessfully()
         {
             //Check new certification record has been added
-           string newCertification = profilePageObj.GetLastCertification(driver);
-           Assert.AreEqual(newCertification, "ISTQB Certified Tester Foundation Level", "Actual and expected skill record do not match.");
+           string newCertification = certificatePageObj.GetLastCertification();
+           Assert.AreEqual("ISTQB Certified Tester Foundation Level", newCertification,  "Actual and expected skill record do not match.");
 
         }
 
-        [When(@"I edit description with valid details")]
-        public void WhenIEditDescriptionWithValidDetails()
-        {
-            //Edit description
-            profilePageObj.EditDescription(driver);
-        }
-
-        [Then(@"The description should be edited successfully")]
-        public void ThenTheDescriptionShouldBeEditedSuccessfully()
-        {
-            //Check description has been edited
-           string newDescription = profilePageObj.GetDescription(driver);
-            Assert.AreEqual(newDescription, "I like playing badminton in my spare time.", "Actual and expected skill record do not match.");
-        }
+       
 
         [Given(@"I update '([^']*)','([^']*)' on an existing language record")]
         public void GivenIUpdateOnAnExistingLanguageRecord(string languagename, string languagelevel)
         {
             //Edit language
-            profilePageObj.EditLanguage(driver,languagename,languagelevel);
+            languagePageObj.EditLanguage(languagename,languagelevel);
         }
 
         [Then(@"The language record should have updated '([^']*)','([^']*)'")]
         public void ThenTheLanguageRecordShouldHaveUpdated(string languagename, string languagelevel)
         {
             //Check the last language record has been edited
-            string checkEditedLanguageName = profilePageObj.GetEditedLanguageName(driver);
-            string checkEditedLanguageLevel = profilePageObj.GetEditedLanguageLevel(driver);
-            Assert.AreEqual(checkEditedLanguageName, languagename, "Actual and expected skill record do not match.");
-            Assert.AreEqual(checkEditedLanguageLevel, languagelevel, "Actual and expected skill record do not match.");
+            string checkEditedLanguageName = languagePageObj.GetEditedLanguageName();
+            string checkEditedLanguageLevel = languagePageObj.GetEditedLanguageLevel();
+            Assert.AreEqual(languagename, checkEditedLanguageName, "Actual and expected skill record do not match.");
+            Assert.AreEqual(languagelevel, checkEditedLanguageLevel,  "Actual and expected skill record do not match.");
 
         }
 
@@ -147,18 +147,18 @@ namespace MarsQA.StepDefinitions
         public void WhenIUpdateOnAnExistingSkillRecord(string skillname, string skilllevel)
         {
             //Edit skill
-            profilePageObj.EditSkill(driver,skillname,skilllevel);
+            skillPageObj.EditSkill(skillname,skilllevel);
         }
 
         [Then(@"The skill record should have updated '([^']*)','([^']*)'")]
         public void ThenTheSkillRecordShouldHaveUpdated(string skillname, string skilllevel)
         {
             //Check the last skill record has been edited
-            string checkEditedSkillName = profilePageObj.GetEditedSkillName(driver);
-            String checkEditedSkillLevel = profilePageObj.GetEditedSkillLevel(driver);
+            string checkEditedSkillName = skillPageObj.GetEditedSkillName();
+            String checkEditedSkillLevel = skillPageObj.GetEditedSkillLevel();
 
-            Assert.AreEqual(checkEditedSkillName, skillname, "Actual and expected skill record do not match.");
-            Assert.AreEqual(checkEditedSkillLevel, skilllevel, "Actual and expected skill record do not match.");
+            Assert.AreEqual(skillname, checkEditedSkillName, "Actual and expected skill record do not match.");
+            Assert.AreEqual(skilllevel, checkEditedSkillLevel,  "Actual and expected skill record do not match.");
         }
 
         [When(@"I update'([^']*)','([^']*)' on an existing education record")]
@@ -166,7 +166,7 @@ namespace MarsQA.StepDefinitions
         {
 
             //Edit education
-            profilePageObj.EditEducation(driver, country, university);
+            educationPageObj.EditEducation(country, university);
 
         }
 
@@ -174,42 +174,42 @@ namespace MarsQA.StepDefinitions
         public void ThenTheEducationRecordShouldHaveUpdated(string country, string university)
         {
             //Check the last education recoed has been edited
-            string checkEditedCountry = profilePageObj.GetEditedEducationCountry(driver);
-            string checkEditedUniversity = profilePageObj.GetEditedEducationUniversity(driver);
-            Assert.AreEqual(checkEditedCountry, country, "Actual and expected skill record do not match.");
-            Assert.AreEqual(checkEditedUniversity, university, "Actual and expected skill record do not match.");
+            string checkEditedCountry = educationPageObj.GetEditedEducationCountry();
+            string checkEditedUniversity = educationPageObj.GetEditedEducationUniversity();
+            Assert.AreEqual(country, checkEditedCountry, "Actual and expected skill record do not match.");
+            Assert.AreEqual(university, checkEditedUniversity,  "Actual and expected skill record do not match.");
         }
 
         [When(@"I update '([^']*)','([^']*)' on an existing certification record")]
         public void WhenIUpdateOnAnExistingCertificationRecord(string certificatename, string certificatefrom)
         {
             //Edit certificate
-            profilePageObj.EditCertification(driver,certificatename,certificatefrom);
+            certificatePageObj.EditCertification(certificatename,certificatefrom);
         }
 
         [Then(@"The certification reocrd should have updated '([^']*)','([^']*)'")]
         public void ThenTheCertificationReocrdShouldHaveUpdated(string certificatename, string certificatefrom)
         {
             //Check the last certification record has been updated successfullt
-            string checkEditedCertificateName = profilePageObj.GetEditedCertificateName(driver);
-            string checkEditedCertificateFrom = profilePageObj.GetEditedCertificateFrom(driver);
-            Assert.AreEqual(checkEditedCertificateName, certificatename, "Actual and expected skill record do not match.");
-            Assert.AreEqual(checkEditedCertificateFrom, certificatefrom, "Actual and expected skill record do not match.");
+            string checkEditedCertificateName = certificatePageObj.GetEditedCertificateName();
+            string checkEditedCertificateFrom = certificatePageObj.GetEditedCertificateFrom();
+            Assert.AreEqual(certificatename, checkEditedCertificateName,  "Actual and expected skill record do not match.");
+            Assert.AreEqual(certificatefrom, checkEditedCertificateFrom, "Actual and expected skill record do not match.");
         }
 
         [Given(@"I delete an existing language record")]
         public void GivenIDeleteAnExistingLanguageRecord()
         {
             //Delete the last language record
-            profilePageObj.DeleteLanguage(driver);
+            languagePageObj.DeleteLanguage();
         }
 
         [Then(@"The language reocrd should be deleted successfully")]
         public void ThenTheLanguageReocrdShouldBeDeletedSuccessfully()
         {
             //Check if the language record has been deleted successfully
-            string lastDeletedLanguage = profilePageObj.GetLastLanguage(driver);
-            String checkPopUpMeaasge = profilePageObj.GetPopUpMessage(driver);
+            string lastDeletedLanguage = languagePageObj.GetLastLanguage();
+            String checkPopUpMeaasge = languagePageObj.GetPopUpMessage();
            
 
             Assert.AreEqual(checkPopUpMeaasge, lastDeletedLanguage + " has been deleted from your languages", "Actual and expected skill record do not match.");
@@ -219,15 +219,15 @@ namespace MarsQA.StepDefinitions
         public void WhenIDeleteAnExistingSkillRecord()
         {
             //Delete the last skill record
-            profilePageObj.DeleteSkill(driver);
+            skillPageObj.DeleteSkill();
         }
 
         [Then(@"The skill record should be deleted successfully")]
         public void ThenTheSkillRecordShouldBeDeletedSuccessfully()
         {
             //Check if the skill record has been deleted successfully
-            string lastDeletedSkill = profilePageObj.GetLastSkill(driver);
-            string checkPopUpMessage = profilePageObj.GetPopUpMessage(driver);
+            string lastDeletedSkill = skillPageObj.GetLastSkill();
+            string checkPopUpMessage = languagePageObj.GetPopUpMessage();
             Assert.AreEqual(checkPopUpMessage, lastDeletedSkill + " has been deleted", "Actual and expected skill record do not match.");
         }
 
@@ -235,14 +235,14 @@ namespace MarsQA.StepDefinitions
         public void WhenIDeleteAnExistingEducationRecord()
         {
             //Delete the last education record
-            profilePageObj.DeleteEducation(driver);
+            educationPageObj.DeleteEducation();
         }
 
         [Then(@"The education record should be deleted successfully")]
         public void ThenTheEducationRecordShouldBeDeletedSuccessfully()
         {
-            string lastDeletedEducation = profilePageObj.GetLastEducation(driver);
-            string checkPopUpMessage = profilePageObj.GetPopUpMessage(driver);
+            string lastDeletedEducation = educationPageObj.GetLastEducation();
+            string checkPopUpMessage = languagePageObj.GetPopUpMessage();
             Assert.AreEqual(checkPopUpMessage, "Education entry successfully removed", "Actual and expected skill record do not match.");
         }
 
@@ -250,29 +250,19 @@ namespace MarsQA.StepDefinitions
         public void WhenIDeleteAnExistingCertificationRecord()
         {
             //Delete the last certification record
-            profilePageObj.DeleteCertification(driver);
+            certificatePageObj.DeleteCertification();
 
         }
 
         [Then(@"The new education should be deleted successfully")]
         public void ThenTheNewEducationShouldBeDeletedSuccessfully()
         {
-            string lastDeletedCertification = profilePageObj.GetLastCertification(driver);
-            string checkPopUpMessage = profilePageObj.GetPopUpMessage(driver);
+            string lastDeletedCertification = certificatePageObj.GetLastCertification();
+            string checkPopUpMessage = languagePageObj.GetPopUpMessage();
             Assert.AreEqual(checkPopUpMessage, lastDeletedCertification + " has been deleted from your certification", "Actual and expected skill record do not match.");
         }
 
 
-        [When(@"I share skill in mars portal")]
-        public void WhenIShareSkillInMarsPortal()
-        {
-            throw new PendingStepException();
-        }
-        [Then(@"The skill should be shared successfully")]
-        public void ThenTheSkillShouldBeSharedSuccessfully()
-        {
-            throw new PendingStepException();
-        }
 
     }
 }
