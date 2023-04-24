@@ -85,6 +85,7 @@ namespace MarsQA.Pages
         {
             //Delete an existing skill record
             //Click on delete button of last record
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td[3]/span[2]/i", 5);
             lastSkillDeleteButton.Click();
 
         }
