@@ -30,15 +30,12 @@ namespace MarsQA.Pages
                
             //Identify email textbox and enter email
             emailTextbox.SendKeys("ada@example.com");
-           // Wait.WaitToBeVisiable(driver, "XPath", "/html/body/div[2]/div/div/div[1]/div/div[2]/input", 5);
 
             //Identify password textbox and enter password
             enterpasswordTextbox.SendKeys("123456");
-           // Wait.WaitToBeClickable(driver, "XPath", "/html/body/div[2]/div/div/div[1]/div/div[3]/div/input", 5);
 
             //Identify remember me checkbox and click
             remembermeCheckbox.Click();
-            //Wait.WaitToBeClickable(driver, "XPath", "/html/body/div[2]/div/div/div[1]/div/div[4]/button", 5);
 
             //Identify login button and click
             loginButton.Click();
